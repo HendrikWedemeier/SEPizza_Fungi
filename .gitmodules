@@ -1,0 +1,3 @@
+[submodule "Aufgabe_2/se1lab"]
+	path = Aufgabe_2/se1lab
+	url = git@git.haw-hamburg.de:lehre-sose-25/srs/se1/se1lab.git
