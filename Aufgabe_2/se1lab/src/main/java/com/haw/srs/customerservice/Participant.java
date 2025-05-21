@@ -11,19 +11,13 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Course {
-
+public class Participant {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
     private String name;
 
-    public Course(String name) {
+    public Participant(String name){
         this.name = name;
     }
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @Setter(AccessLevel.NONE)
-    private List<Participant> participants;
 }

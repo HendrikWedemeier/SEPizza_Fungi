@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.context.bean.override.mockito.MockitoBean;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
@@ -21,7 +20,7 @@ import static org.mockito.Mockito.when;
 class CourseServiceTest {
 
     @Autowired
-    private CustomerService customerService;
+    private LecturerService lecturerService;
 
     @Autowired
     private CourseService courseService;
@@ -41,14 +40,14 @@ class CourseServiceTest {
 
     @Test
     void enrollCustomerInCourseSuccess() throws CustomerNotFoundException {
-        Customer customer = new Customer("Jane", "Doe", Gender.FEMALE, "jane.doe@mail.com", null);
-        customerRepository.save(customer);
+        Lecturer lecturer = new Lecturer("Jane", "Doe", Gender.FEMALE, "jane.doe@mail.com", null);
+        customerRepository.save(lecturer);
 
-        assertThat(customer.getCourses()).size().isEqualTo(0);
+        assertThat(lecturer.getCourses()).size().isEqualTo(0);
 
-        courseService.enrollInCourse(customer.getLastName(), new Course("Software Engineering 1"));
+        courseService.enrollInCourse(lecturer.getLastName(), new Course("Software Engineering 1"));
 
-        assertThat(customerService.findCustomerByLastname(customer.getLastName()).getCourses())
+        assertThat(lecturerService.findCustomerByLastname(lecturer.getLastName()).getCourses())
                 .size().isEqualTo(1);
     }
 
@@ -62,11 +61,11 @@ class CourseServiceTest {
     @Test
     @Transactional
     void transferCoursesSuccess() throws CustomerNotFoundException {
-        Customer from = new Customer("John", "Smith", Gender.MALE);
+        Lecturer from = new Lecturer("John", "Smith", Gender.MALE);
         from.addCourse(new Course("Software Engineering 1"));
         from.addCourse(new Course("Software Engineering 2"));
         customerRepository.save(from);
-        Customer to = new Customer("Eva", "Miller", Gender.FEMALE);
+        Lecturer to = new Lecturer("Eva", "Miller", Gender.FEMALE);
         customerRepository.save(to);
 
         assertThat(from.getCourses()).size().isEqualTo(2);
@@ -74,11 +73,11 @@ class CourseServiceTest {
 
         courseService.transferCourses(from.getLastName(), to.getLastName());
 
-        Customer cUpdated = customerRepository.findById(from.getId()).get();
+        Lecturer cUpdated = customerRepository.findById(from.getId()).get();
 
-        assertThat(customerService.findCustomerByLastname(from.getLastName()).getCourses())
+        assertThat(lecturerService.findCustomerByLastname(from.getLastName()).getCourses())
                 .size().isEqualTo(0);
-        assertThat(customerService.findCustomerByLastname(to.getLastName()).getCourses())
+        assertThat(lecturerService.findCustomerByLastname(to.getLastName()).getCourses())
                 .size().isEqualTo(2);
     }
 

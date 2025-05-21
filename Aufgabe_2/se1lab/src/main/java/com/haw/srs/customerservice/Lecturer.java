@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Data
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
-public class Customer {
+public class Lecturer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,11 +29,13 @@ public class Customer {
 
     private PhoneNumber phoneNumber;
 
+    private Address address;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @Setter(AccessLevel.NONE)
     private List<Course> courses = new ArrayList<>();
 
-    public Customer(String firstName, String lastName, Gender gender, String email, PhoneNumber phoneNumber) {
+    public Lecturer(String firstName, String lastName, Gender gender, String email, PhoneNumber phoneNumber) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;
@@ -41,7 +43,7 @@ public class Customer {
         this.phoneNumber = phoneNumber;
     }
 
-    public Customer(String firstName, String lastName, Gender gender) {
+    public Lecturer(String firstName, String lastName, Gender gender) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.gender = gender;

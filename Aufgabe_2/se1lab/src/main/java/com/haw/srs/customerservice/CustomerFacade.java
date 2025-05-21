@@ -19,12 +19,12 @@ public class CustomerFacade {
     }
 
     @GetMapping
-    public List<Customer> getCustomers() {
+    public List<Lecturer> getCustomers() {
         return customerRepository.findAll();
     }
 
     @GetMapping(value = "/{id:[\\d]+}")
-    public Customer getCustomer(@PathVariable("id") Long customerId) throws CustomerNotFoundException {
+    public Lecturer getCustomer(@PathVariable("id") Long customerId) throws CustomerNotFoundException {
         return customerRepository
                 .findById(customerId)
                 .orElseThrow(() -> new CustomerNotFoundException(customerId));
@@ -33,26 +33,26 @@ public class CustomerFacade {
     @DeleteMapping("/{id:[\\d]+}")
     @ResponseStatus(HttpStatus.OK)
     public void deleteCustomer(@PathVariable("id") Long customerId) throws CustomerNotFoundException {
-        Customer customer = customerRepository
+        Lecturer lecturer = customerRepository
                 .findById(customerId)
                 .orElseThrow(() -> new CustomerNotFoundException(customerId));
 
-        customerRepository.delete(customer);
+        customerRepository.delete(lecturer);
     }
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public Customer createCustomer(@RequestBody Customer customer) {
+    public Lecturer createCustomer(@RequestBody Lecturer lecturer) {
 
-        return customerRepository.save(customer);
+        return customerRepository.save(lecturer);
     }
 
     @PutMapping
-    public Customer updateCustomer(@RequestBody Customer customer) throws CustomerNotFoundException {
-        Customer customerToUpdate = customerRepository
-                .findById(customer.getId())
-                .orElseThrow(() -> new CustomerNotFoundException(customer.getId()));
+    public Lecturer updateCustomer(@RequestBody Lecturer lecturer) throws CustomerNotFoundException {
+        Lecturer lecturerToUpdate = customerRepository
+                .findById(lecturer.getId())
+                .orElseThrow(() -> new CustomerNotFoundException(lecturer.getId()));
 
-        return customerRepository.save(customer);
+        return customerRepository.save(lecturer);
     }
 }

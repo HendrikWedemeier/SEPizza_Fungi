@@ -15,20 +15,20 @@ public class CourseService {
 
     @Transactional
     public void enrollInCourse(String lastName, Course course) throws CustomerNotFoundException {
-        Customer customer = customerRepository
+        Lecturer lecturer = customerRepository
                 .findByLastName(lastName)
                 .orElseThrow(() -> new CustomerNotFoundException(lastName));
 
-        customer.addCourse(course);
-        customerRepository.save(customer);
+        lecturer.addCourse(course);
+        customerRepository.save(lecturer);
     }
 
     @Transactional
     public void transferCourses(String fromCustomerLastName, String toCustomerLastName) throws CustomerNotFoundException {
-        Customer from = customerRepository
+        Lecturer from = customerRepository
                 .findByLastName(fromCustomerLastName)
                 .orElseThrow(() -> new CustomerNotFoundException(fromCustomerLastName));
-        Customer to = customerRepository
+        Lecturer to = customerRepository
                 .findByLastName(toCustomerLastName)
                 .orElseThrow(() -> new CustomerNotFoundException(toCustomerLastName));
 

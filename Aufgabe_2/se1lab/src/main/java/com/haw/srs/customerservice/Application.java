@@ -34,12 +34,12 @@ class PopulateTestDataRunner implements CommandLineRunner {
         Arrays.asList(
                         "Miller,Doe,Smith".split(","))
                 .forEach(
-                        name -> customerRepository.save(new Customer("Jane", name, Gender.FEMALE, name + "@dummy.org", null))
+                        name -> customerRepository.save(new Lecturer("Jane", name, Gender.FEMALE, name + "@dummy.org", null))
                 );
 
-        Customer customer = new Customer("Stefan", "Sarstedt", Gender.MALE, "stefan.sarstedt@haw-hamburg.de", new PhoneNumber("+49-40-428758434"));
+        Lecturer lecturer = new Lecturer("Stefan", "Sarstedt", Gender.MALE, "stefan.sarstedt@haw-hamburg.de", new PhoneNumber("+49-40-428758434"));
         Course course = new Course("Software Engineering 1");
-        customer.addCourse(course);
-        customerRepository.save(customer);
+        lecturer.addCourse(course);
+        customerRepository.save(lecturer);
     }
 }

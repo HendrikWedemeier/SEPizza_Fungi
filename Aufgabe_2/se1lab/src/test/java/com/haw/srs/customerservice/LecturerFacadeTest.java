@@ -18,7 +18,7 @@ import static org.hamcrest.Matchers.*;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(classes = Application.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class CustomerFacadeTest {
+class LecturerFacadeTest {
 
     private final Log log = LogFactory.getLog(getClass());
 
@@ -28,13 +28,13 @@ class CustomerFacadeTest {
     @Autowired
     private CustomerRepository customerRepository;
 
-    private Customer customer;
+    private Lecturer lecturer;
 
     @BeforeEach
     void setUp() {
         this.customerRepository.deleteAll();
 
-        customer = this.customerRepository.save(new Customer("Stefan", "Sarstedt", Gender.MALE));
+        lecturer = this.customerRepository.save(new Lecturer("Stefan", "Sarstedt", Gender.MALE));
 
         RestAssured.port = port;
         RestAssured.basePath = "";
@@ -59,7 +59,7 @@ class CustomerFacadeTest {
         //@formatter:off
         given().
         when().
-                get("/customers/{id}", customer.getId()).
+                get("/customers/{id}", lecturer.getId()).
         then().
                 statusCode(HttpStatus.OK.value()).
                 body("lastName", equalTo("Sarstedt"));
@@ -82,7 +82,7 @@ class CustomerFacadeTest {
         //@formatter:off
         given().
                 contentType(ContentType.JSON).
-                body(new Customer("Stefan", "Sarstedt", Gender.MALE)).
+                body(new Lecturer("Stefan", "Sarstedt", Gender.MALE)).
         when().
                 post("/customers").
         then().
@@ -93,12 +93,12 @@ class CustomerFacadeTest {
 
     @Test
     void updateCustomerSuccess() {
-        customer.setFirstName("Stefanie");
+        lecturer.setFirstName("Stefanie");
 
         //@formatter:off
         given().
                 contentType(ContentType.JSON).
-                body(customer).
+                body(lecturer).
         when().
                 put("/customers").
         then().
@@ -106,7 +106,7 @@ class CustomerFacadeTest {
 
         given().
         when().
-                get("/customers/{id}", customer.getId()).
+                get("/customers/{id}", lecturer.getId()).
         then().
                 statusCode(HttpStatus.OK.value()).
                 body("firstName", is(equalTo("Stefanie")));
@@ -117,13 +117,13 @@ class CustomerFacadeTest {
     void deleteCustomerSuccess() {
         //@formatter:off
         given().
-                delete("/customers/{id}", customer.getId()).
+                delete("/customers/{id}", lecturer.getId()).
         then().
                 statusCode(HttpStatus.OK.value());
 
         given().
         when().
-                get("/customers/{id}", customer.getId()).
+                get("/customers/{id}", lecturer.getId()).
         then().
                 statusCode(HttpStatus.NOT_FOUND.value());
         //@formatter:on

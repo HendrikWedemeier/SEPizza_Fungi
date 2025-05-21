@@ -6,10 +6,10 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface CustomerRepository extends JpaRepository<Customer, Long> {
+public interface CustomerRepository extends JpaRepository<Lecturer, Long> {
 
-    Optional<Customer> findByLastName(String lastName);
+    Optional<Lecturer> findByLastName(String lastName);
 
-    Optional<Customer> findCustomerByFirstName(String fistName);
+    Optional<Lecturer> findCustomerByFirstName(String fistName);
 
 }
