@@ -29,8 +29,8 @@ class LecturerServiceTest {
     @BeforeEach
     void setup() {
         customerRepository.deleteAll();
-        participantRepository.deleteAll();
         courseRepository.deleteAll();
+        participantRepository.deleteAll();
     }
 
     @Test
@@ -65,18 +65,23 @@ class LecturerServiceTest {
     }
 
     @Test
-    void testEnrollParticipant(){
+    void testEnrollParticipant() throws CourseNotFoundException, ParticipantNotFoundException {
         LecturerService service = new LecturerService(customerRepository, participantRepository, courseRepository);
 
         Course course = new Course("DB");
-        courseRepository.save(course);
         Participant parti = new Participant("John Software");
         participantRepository.save(parti);
+        courseRepository.save(course);
 
         assertThatExceptionOfType(CourseNotFoundException.class)
                 .isThrownBy(() -> service.enrollParticipant(course.getId() + 1, parti.getId()));
 
         assertThatExceptionOfType(ParticipantNotFoundException.class)
                 .isThrownBy(() -> service.enrollParticipant(course.getId(), parti.getId() + 1));
+
+        Course dbCourse = courseRepository.findCourseByName(course.getName()).get();
+        Participant dvParti = participantRepository.findByName("John Software").get();
+        lecturerService.enrollParticipant(dbCourse.getId(), dvParti.getId());
+
     }
 }

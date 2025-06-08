@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @Embeddable
 public class Address {
     private String street;
-    private Integer number;
-    private Integer zip;
+    private Integer number; //String regex
+    private Integer zip; //Auch String reges, siehe Phonenumber
     private String city;
 }
