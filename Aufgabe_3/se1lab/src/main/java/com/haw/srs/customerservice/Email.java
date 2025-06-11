@@ -1,0 +1,30 @@
+package com.haw.srs.customerservice;
+
+import jakarta.persistence.Embeddable;
+import lombok.*;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+@Getter
+@Data
+@Embeddable
+public class Email {
+    //source ChatGPT
+    private static final String emailRegex = "^[a-zA-Z0-9]+([._-]?[a-zA-Z0-9]+)*@[a-zA-Z0-9]+([.-]?[a-zA-Z0-9]+)*\\.[a-zA-Z]{2,}$";
+    private String address;
+
+    public Email(String email) throws IllegalArgumentException{
+        Pattern pattern = Pattern.compile(emailRegex);
+        Matcher matcher = pattern.matcher(email);
+        if (!matcher.matches()) {
+            throw new IllegalArgumentException("Invalid phone number: " + email);
+        }
+
+        address = email;
+    }
+
+    public Email() {
+
+    }
+}
