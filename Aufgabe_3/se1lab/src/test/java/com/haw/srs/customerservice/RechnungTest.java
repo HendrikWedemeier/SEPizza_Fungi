@@ -25,7 +25,7 @@ public class RechnungTest {
 
         Benutzer benutzer = new Benutzer(mail, address, "Vorname", "Nachname", number);
 
-        rechnung = new Rechnung(benutzer.getEmail().getAddress(), 35.66);
+        rechnung = new Rechnung(benutzer, 35.66);
 
         rechnungRepository.save(rechnung);
     }

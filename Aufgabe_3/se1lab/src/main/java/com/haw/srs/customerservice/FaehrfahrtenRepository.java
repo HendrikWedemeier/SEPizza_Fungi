@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import java.util.Optional;
 
 @Repository
-public interface FaehrfahrtenRepository extends JpaRepository<Faehrfahrten, Long> {
-    Optional<Faehrfahrten> findById(Long id);
+public interface FaehrfahrtenRepository extends JpaRepository<Faehrfahrt, Long> {
+    Optional<Faehrfahrt> findById(Long id);
 }

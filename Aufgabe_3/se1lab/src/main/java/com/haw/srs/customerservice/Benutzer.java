@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 @Data
-//@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Entity
 public class Benutzer implements Serializable {
     @EmbeddedId
@@ -24,9 +24,5 @@ public class Benutzer implements Serializable {
         this.vorname = vorname;
         this.nachname = nachname;
         this.telefon = number;
-    }
-
-    public Benutzer() {
-
     }
 }

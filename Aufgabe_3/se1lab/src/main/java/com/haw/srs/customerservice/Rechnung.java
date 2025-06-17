@@ -16,11 +16,11 @@ public class Rechnung implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private Long preis;
-    private String kundenMail;
+    private Email benutzerMail;
 
-    public Rechnung(String kundenMail, double preis){
+    public Rechnung(Benutzer benutzer, double preis){
         this.preis = getPreis(preis);
-        this.kundenMail = kundenMail;
+        this.benutzerMail = benutzer.getEmail();
     }
 
     public Rechnung() {
